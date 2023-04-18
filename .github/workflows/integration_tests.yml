@@ -48,3 +48,12 @@ jobs:
         run: |
           cd build/tests/scripts
           ctest --output-on-failure -L integration_tests --verbose
+
+      - name: Merge to Production Branch
+        if: success() && env.cmake_version == "latestrc"
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: dev
+          target_branch: master
+          github_token: ${{ secrets.GITHUB_TOKEN }}

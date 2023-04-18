@@ -1,0 +1,12 @@
+name: Tag and Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  tag:
+    uses: NWChemEx-Project/.github/.github/workflows/tag_and_release_master.yaml@master
+    secrets:
+      token: ${{ secrets.TAG_TOKEN }}

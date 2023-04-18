@@ -13,6 +13,10 @@ on:
   # Allows manual triggering with the "Run workflow" button
   workflow_dispatch:
 
+# Hopefully allow merging to the master branch
+permissions:
+  contents: write
+
 jobs:
   integration-tests:
     runs-on: ubuntu-latest
@@ -50,10 +54,11 @@ jobs:
           ctest --output-on-failure -L integration_tests --verbose
 
       - name: Merge to Production Branch
-        if: success() && env.cmake_version == "latestrc"
+        if: success() && env.cmake_version == 'latestrc'
         uses: devmasx/merge-branch@master
         with:
           type: now
           from_branch: dev
           target_branch: master
+          message: Merge 'dev' -> 'master'
           github_token: ${{ secrets.GITHUB_TOKEN }}

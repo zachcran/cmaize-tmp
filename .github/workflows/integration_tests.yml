@@ -13,6 +13,10 @@ on:
   # Allows manual triggering with the "Run workflow" button
   workflow_dispatch:
 
+# Allow merging to the master branch
+permissions:
+  contents: write
+
 jobs:
   integration-tests:
     runs-on: ubuntu-latest
